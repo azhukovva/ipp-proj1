@@ -150,7 +150,6 @@ class Instruction:
             if (
                 self.opcode == ".IPPCODE24" and headerCount == 1
             ):  # If there is alredy header
-                #print("ненене неправильный header")
                 sys.exit(23)
             instrXML = ET.SubElement(
                 root, "instruction", order=str(self.order), opcode=instruction
@@ -164,7 +163,6 @@ class Instruction:
 
             return instrXML
         else:
-            #print("ненене неправильный opcode")
             sys.exit(22)  # Opcode does not exist
 
 
@@ -184,7 +182,6 @@ class Argument:
             self.typeForCheck = "var" 
             frame = re.sub(r"@.*$", "", self.arg).strip()  # GF, LF, TF
             if not frame.isupper():
-                #print("ненене переменные должны быть капсом")
                 sys.exit(23)
             self.text = self.arg
             match = 1
@@ -224,11 +221,9 @@ class Argument:
             match = 1
 
         if arg.isupper() and not self.type == "var":
-            #print("ненене аргументы должны быть в нижнем регистре")  # INT - not ok, Int - ok, GF@A - ok
             sys.exit(23)
 
         if match == 0:
-            #print("ненене неправильный аргумент")
             sys.exit(23)
 
         # ========================================================
@@ -247,7 +242,6 @@ class Argument:
         elif self.typeForCheck in ["var", 'bool', 'nil', 'string'] and typesArray[number - 1] == "symb":
             self.type = self.type
         else:
-            #print("ненене синтаксическая осечка")
             sys.exit(23)
             
 
@@ -289,7 +283,6 @@ for formatted_line in formatted_lines:
             headerCount += 1
             continue
         else:
-            #print("ненене неправильный header")
             sys.exit(21)
     # --------------------------------------------
 
@@ -317,7 +310,6 @@ for formatted_line in formatted_lines:
  
     # Check if the number of arguments is allowed
     if argLength > 3 or argLength != len(typesArray):
-        #print("ненене неправильный почет аргументов")
         sys.exit(23)
 
     for arg in arguments:
@@ -329,4 +321,4 @@ for formatted_line in formatted_lines:
 
 xml_string = ET.tostring(root, encoding='utf-8').decode('utf-8')
 print(xml_string)
-#tree.write(sys.stdout, encoding="UTF-8", xml_declaration=True)
+
